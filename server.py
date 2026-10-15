@@ -236,7 +236,7 @@ def run_dev_server(port: int = 8080, use_mock: bool = False) -> None:
     httpd = ThreadingHTTPServer(server_address, FrontendDevServerHandler)
     mode_str = "IN-MEMORY MOCK" if use_mock else "LIVE AWS DYNAMODB"
     LOGGER.info(
-        "Surplus Router Frontend Server running at http://127.0.0.1:%d [%s mode]",
+        "FoodLink Agent Frontend Server running at http://127.0.0.1:%d [%s mode]",
         port,
         mode_str,
     )
@@ -248,7 +248,7 @@ def run_dev_server(port: int = 8080, use_mock: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Surplus Router Local Server")
+    parser = argparse.ArgumentParser(description="Run FoodLink Agent Local Server")
     parser.add_argument("--port", type=int, default=8080, help="Port to listen on")
     parser.add_argument(
         "--mock",

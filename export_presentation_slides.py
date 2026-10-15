@@ -4,7 +4,9 @@ import os
 import win32com.client
 
 def export_slides():
-    ppt_path = os.path.abspath("Surplus_Router_AI_Solutions_Presentation.pptx")
+    ppt_path = os.path.abspath("FoodLink_Agent_Presentation.pptx")
+    if not os.path.exists(ppt_path):
+        ppt_path = os.path.abspath("Surplus_Router_AI_Solutions_Presentation.pptx")
     out_dir = os.path.abspath("presentation_slides_preview")
     os.makedirs(out_dir, exist_ok=True)
 

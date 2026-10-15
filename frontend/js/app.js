@@ -1,5 +1,5 @@
 /**
- * Surplus Router — Client Application Logic (Vanilla JavaScript)
+ * FoodLink Agent — Client Application Logic (Vanilla JavaScript)
  * Implements Zero-IDOR Capability Tokens, Strict XSS Escaping,
  * Role-Based View Switching, and Real-Time Coordination Feed.
  */

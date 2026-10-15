@@ -1,6 +1,6 @@
-# System Architecture — Surplus Router (Good Neighbor Agent)
+# System Architecture — FoodLink Agent
 
-Surplus Router is an autonomous coordination agent built on the **Strands Agents SDK** and deployed on **Amazon Bedrock AgentCore**. It is architected for the **Good Neighbor Agents** track to eliminate the daily operational busywork of community food recovery by autonomously matching surplus food from commercial donors to community recipient organizations (shelters, soup kitchens, food pantries) and dispatching transit volunteers.
+FoodLink Agent is an autonomous coordination platform built on the **Strands Agents SDK** and deployed on **Amazon Bedrock AgentCore**. It eliminates the daily operational busywork of community food recovery by autonomously matching surplus food from commercial donors to community recipient organizations (shelters, soup kitchens, food pantries) and dispatching transit volunteers.
 
 ---
 

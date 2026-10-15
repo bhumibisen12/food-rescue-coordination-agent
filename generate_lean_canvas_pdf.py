@@ -22,7 +22,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 
 def generate_pdf():
-    pdf_filename = "lean_canvas_surplus_router.pdf"
+    pdf_filename = "lean_canvas_foodlink_agent.pdf"
 
     # A4 landscape: 841.89 x 595.27 pt
     doc = SimpleDocTemplate(
@@ -88,7 +88,7 @@ def generate_pdf():
     header_data = [
         [
             Paragraph(
-                "<b>LEAN CANVAS &mdash; Surplus Router</b> (AI/ML Autonomous Food Rescue Agent)",
+                "<b>LEAN CANVAS &mdash; FoodLink Agent</b> (Autonomous AI Food Rescue Agent)",
                 style_header_title,
             ),
             Paragraph(

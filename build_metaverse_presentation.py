@@ -77,7 +77,7 @@ class CyberDeckBuilder:
 
         return slide
 
-    def add_top_badge(self, slide, text="AWS HACKATHON 2026"):
+    def add_top_badge(self, slide, text="AUTONOMOUS AI RESCUE"):
         """Add small top-left pill badge matching template."""
         badge = slide.shapes.add_shape(
             MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(0.5), Inches(2.5), Inches(0.32)
@@ -116,13 +116,13 @@ class CyberDeckBuilder:
 
 
 def build_metaverse_deck():
-    builder = CyberDeckBuilder("Surplus_Router_Metaverse_Presentation.pptx")
+    builder = CyberDeckBuilder("FoodLink_Agent_Metaverse_Presentation.pptx")
 
     # =========================================================================
     # SLIDE 1: HERO TITLE SLIDE (Matches Template Slide 1: METAVERSE)
     # =========================================================================
     s1 = builder.add_cyber_slide(use_stage_bg=True)
-    builder.add_top_badge(s1, "AWS AGENTS FOR HUMANS 2026")
+    builder.add_top_badge(s1, "AUTONOMOUS FOOD LOGISTICS")
 
     # Hero Main Title
     tb_title = s1.shapes.add_textbox(Inches(1.0), Inches(1.1), Inches(11.3), Inches(2.2))
@@ -130,7 +130,7 @@ def build_metaverse_deck():
     tf_t.word_wrap = True
 
     p_t = tf_t.paragraphs[0]
-    p_t.text = "SURPLUS ROUTER"
+    p_t.text = "FOODLINK AGENT"
     p_t.font.name = FONT_NAME
     p_t.font.size = Pt(50)
     p_t.font.bold = True

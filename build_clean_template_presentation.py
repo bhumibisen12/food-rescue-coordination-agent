@@ -1,4 +1,4 @@
-"""Generate an executive-level, professional 10-slide PowerPoint presentation for Surplus Router.
+"""Generate an executive-level, professional 10-slide PowerPoint presentation for FoodLink Agent.
 
 Strict User Requirements:
 - Images are strictly food-rescue and food-logistics themed (fresh food crates, eco delivery bike, community meal service, sharing hands).
@@ -39,7 +39,7 @@ IMG_FOOD_THANKYOU = os.path.join(APP_DATA_DIR, "food_sharing_hands_1792053303740
 
 
 class FoodDeckBuilder:
-    def __init__(self, output_filename="Surplus_Router_AI_Solutions_Presentation.pptx"):
+    def __init__(self, output_filename="FoodLink_Agent_Presentation.pptx"):
         self.filename = output_filename
         self.prs = Presentation()
         self.prs.slide_width = Inches(13.333)
@@ -105,14 +105,14 @@ class FoodDeckBuilder:
         ttf.word_wrap = True
 
         p_badge = ttf.paragraphs[0]
-        p_badge.text = "🌱 AWS GOOD NEIGHBOR AGENTS TRACK"
+        p_badge.text = "🌱 AUTONOMOUS COMMUNITY RESCUE AGENT"
         p_badge.font.name = FONT_FAMILY
         p_badge.font.size = Pt(11)
         p_badge.font.bold = True
         p_badge.font.color.rgb = COLOR_CYAN_PRIMARY
 
         p_main = ttf.add_paragraph()
-        p_main.text = "Surplus Router"
+        p_main.text = "FoodLink Agent"
         p_main.font.name = FONT_FAMILY
         p_main.font.size = Pt(40)
         p_main.font.bold = True
@@ -310,7 +310,7 @@ class FoodDeckBuilder:
         rp.font.color.rgb = COLOR_NAVY_TITLE
 
         rp_desc = rtf.add_paragraph()
-        rp_desc.text = "Busy chefs and banquet managers trash edible food because existing recovery apps require tedious account signups. Surplus Router issues cryptographic 256-bit tracking secrets for instant, passwordless coordination."
+        rp_desc.text = "Busy chefs and banquet managers trash edible food because existing recovery apps require tedious account signups. FoodLink Agent issues cryptographic 256-bit tracking secrets for instant, passwordless coordination."
         rp_desc.font.name = FONT_FAMILY
         rp_desc.font.size = Pt(10)
         rp_desc.font.color.rgb = COLOR_TEXT_MUTED
@@ -412,7 +412,7 @@ class FoodDeckBuilder:
         rp1.font.color.rgb = COLOR_NAVY_TITLE
 
         rp2 = rtf.add_paragraph()
-        rp2.text = "Standard delivery algorithms only minimize travel distance. Surplus Router introduces a food-perishability decay multiplier into the objective function:"
+        rp2.text = "Standard delivery algorithms only minimize travel distance. FoodLink Agent introduces a food-perishability decay multiplier into the objective function:"
         rp2.font.name = FONT_FAMILY
         rp2.font.size = Pt(9.5)
         rp2.font.color.rgb = COLOR_TEXT_MUTED
@@ -824,7 +824,7 @@ class FoodDeckBuilder:
         p1.font.color.rgb = COLOR_NAVY_TITLE
 
         p2 = ttf.add_paragraph()
-        p2.text = "Autonomous AI coordination must never jeopardize donor privacy, shelter dignity, or food safety. Surplus Router combines cryptographic Zero-IDOR isolation with deterministic human-in-the-loop escalation boundaries."
+        p2.text = "Autonomous AI coordination must never jeopardize donor privacy, shelter dignity, or food safety. FoodLink Agent combines cryptographic Zero-IDOR isolation with deterministic human-in-the-loop escalation boundaries."
         p2.font.name = FONT_FAMILY
         p2.font.size = Pt(10.5)
         p2.font.color.rgb = COLOR_NAVY_BODY
@@ -935,9 +935,9 @@ class FoodDeckBuilder:
             "Presenter: Bhumeshwari Bisen\n"
             "Position: Machine Learning & Applied AI Intern\n"
             "Institution: Indore Institute of Science & Technology (IIST)\n"
-            "Project: Surplus Router (Autonomous Bedrock AgentCore)\n"
+            "Project: FoodLink Agent (Autonomous Bedrock AgentCore)\n"
             "Live URL: https://tender-berries-chew.loca.lt\n"
-            "GitHub: https://github.com/kuldeep-poonia/food-rescue-coordination-agent"
+            "GitHub: https://github.com/bhumibisen12/food-rescue-coordination-agent"
         )
         p_details.font.name = FONT_FAMILY
         p_details.font.size = Pt(11)
@@ -950,7 +950,7 @@ class FoodDeckBuilder:
 
 
 def main():
-    deck = FoodDeckBuilder("Surplus_Router_AI_Solutions_Presentation.pptx")
+    deck = FoodDeckBuilder("FoodLink_Agent_Presentation.pptx")
     deck.build_slide_1()
     deck.build_slide_2()
     deck.build_slide_3()

@@ -153,7 +153,7 @@ def build_full_deck():
     bp_tf = brand_pill.text_frame
     bp_tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     bp_p = bp_tf.paragraphs[0]
-    bp_p.text = "AWS 'AGENTS FOR HUMANS' HACKATHON | GOOD NEIGHBOR TRACK"
+    bp_p.text = "AUTONOMOUS COMMUNITY RESCUE AGENT | ZERO-WASTE LOGISTICS"
     bp_p.font.name = FONT_NAME
     bp_p.font.size = Pt(8.5)
     bp_p.font.bold = True
@@ -166,7 +166,7 @@ def build_full_deck():
     tf_l.word_wrap = True
 
     p_proj = tf_l.paragraphs[0]
-    p_proj.text = "Surplus Router"
+    p_proj.text = "FoodLink Agent"
     p_proj.font.name = FONT_NAME
     p_proj.font.size = Pt(44)
     p_proj.font.bold = True

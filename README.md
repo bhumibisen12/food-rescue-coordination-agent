@@ -1,4 +1,4 @@
-# 🌱 Surplus Router — Autonomous Food Rescue Coordination Agent
+# 🌱 FoodLink Agent — Autonomous Food Rescue Coordination Agent
 
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 [![Tests](https://img.shields.io/badge/Tests-157%2F157%20Passing%20(100%25)-success.svg)]()
@@ -8,15 +8,14 @@
 [![YouTube Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?logo=youtube)](https://youtu.be/c3ywTNW5Nys)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> **AWS "Agents for Humans" Hackathon Submission**  
-> **Track:** **Good Neighbor Agents** — *Autonomous AI agents that serve communities, nonprofits, food banks, shelters, and local volunteer networks.*  
+> **Autonomous Community Platform** — *Autonomous AI agents that serve communities, nonprofits, food banks, shelters, and local volunteer networks.*  
 > **Core Architecture:** Autonomous event-driven background agent built with the **Strands Agents SDK**, deployed on **Amazon Bedrock AgentCore**, backed by **Amazon DynamoDB ACID transactions**, and powered by **Amazon Location Service**.
 
 ---
 
 ## 📑 Table of Contents
 1. [🌟 Executive Summary](#-executive-summary)
-2. [🎯 The Real-World Problem & The Good Neighbor Mission](#-the-real-world-problem--the-good-neighbor-mission)
+2. [🎯 The Real-World Problem & Community Mission](#-the-real-world-problem--community-mission)
 3. [👥 Target Personas (Who It's For)](#-target-personas-who-its-for)
 4. [🛡️ Critical Design Decision: Why Recipients Cannot Publicly Self-Register](#️-critical-design-decision-why-recipients-cannot-publicly-self-register)
 5. [🏗️ Architecture & Technology Stack](#️-architecture--technology-stack)
@@ -39,7 +38,7 @@ Connecting these two groups should be effortless. In reality, it is an **exhaust
 * Perishable warm food spoils within **3 to 4 hours** while coordinators frantically look for an open shelter with refrigerator space and a driver who is free.
 * When coordination lags, **edible food is thrown into dumpsters**, generating harmful methane in landfills while families go hungry.
 
-**Surplus Router** solves this crisis. Instead of an app that people must constantly monitor, Surplus Router is an **autonomous background coordination agent** built on the **Strands Agents SDK** and **Amazon Bedrock AgentCore**. It runs 24/7 without manual intervention:
+**FoodLink Agent** solves this crisis. Instead of an app that people must constantly monitor, FoodLink Agent is an **autonomous background coordination agent** built on the **Strands Agents SDK** and **Amazon Bedrock AgentCore**. It runs 24/7 without manual intervention:
 1. **Instantly absorbs surplus reports** from commercial food donors via a frictionless mobile web portal.
 2. **Evaluates regional shelter constraints** (real-time storage capacity, dietary exclusions, travel distance, and shelf-life urgency).
 3. **Executes deterministic multi-factor matching** and dispatches transit volunteers via **Amazon DynamoDB ACID conditional transactions** that mathematically prevent double allocations.
@@ -48,7 +47,7 @@ Connecting these two groups should be effortless. In reality, it is an **exhaust
 
 ---
 
-## 🎯 The Real-World Problem & The Good Neighbor Mission
+## 🎯 The Real-World Problem & Community Mission
 
 ### The Coordination Bottleneck
 ```
@@ -62,7 +61,7 @@ Traditional Manual Workflow (3-5 Hours of Daily Chaos):
           └──> 2.5 Hours elapse... Food shelf-life expires! ❌ (Food Wasted)
 ```
 
-### The Autonomous Surplus Router Workflow (Sub-Second Latency):
+### The Autonomous FoodLink Agent Workflow (Sub-Second Latency):
 ```
 Autonomous Agent Workflow (< 1 Second Total Latency):
 [Restaurant Reports Surplus] 
@@ -80,7 +79,7 @@ Autonomous Agent Workflow (< 1 Second Total Latency):
 
 ## 👥 Target Personas (Who It's For)
 
-| Persona | Role in the Ecosystem | How They Interact with Surplus Router |
+| Persona | Role in the Ecosystem | How They Interact with FoodLink Agent |
 | :--- | :--- | :--- |
 | **Commercial Donors** | Restaurants, bakeries, corporate cafeterias, caterers, grocery stores | Use a frictionless 30-second form to report surplus food. No password or registration needed; receive a cryptographic tracking token. |
 | **Recipient Organizations** | Homeless shelters, soup kitchens, food pantries, youth centers | Pre-vetted non-profits with verified cold-storage. Check in daily via their Organization ID (`rec-shelter-01`) to update intake capacity. |
@@ -106,7 +105,7 @@ Donated perishable food (especially prepared hot meals, dairy, and fresh meats) 
 High-end commercial donors give away premium surplus (organic meats, artisan bakery, gourmet catering). An open, unauthenticated public registration form would allow malicious actors to set up fake "charity" accounts, collect free bulk food, and illegally resell it for profit.
 
 ### 3. Verification & Trust Protocol
-In Surplus Router's architecture:
+In FoodLink Agent's architecture:
 1. **Offline/Coordinator Vetting**: The non-profit coordinator personally inspects the recipient facility, verifies their 501(c)(3) or charitable registration, inspects storage capacity, and issues a verified **Recipient Organization ID** (e.g., `rec-shelter-01`).
 2. **Operational Autonomy via Portal**: Once vetted, the shelter is completely autonomous. They do **not** need to call or text the coordinator. They simply open the **Recipient Partner** tab, enter their verified Organization ID, and use the interactive capacity slider (0–500 kg) to update their real-time intake availability.
 
@@ -186,7 +185,7 @@ flowchart TD
 When you open **`http://localhost:8080`**, you have access to a complete 6-tab unified operational suite:
 
 ```
-[🌱 Surplus Router]  [📦 Report Surplus]  [🔍 Status Lookup]  [🏢 Recipient Partner]  [🚲 Transit Volunteer]  [🛡️ Coordinator]  [📊 Impact Metrics]
+[🌱 FoodLink Agent]  [📦 Report Surplus]  [🔍 Status Lookup]  [🏢 Recipient Partner]  [🚲 Transit Volunteer]  [🛡️ Coordinator]  [📊 Impact Metrics]
 ```
 
 ---
@@ -315,11 +314,11 @@ The agent never makes guesses when safety or fairness is compromised. It automat
 
 ## 🎬 Live End-to-End System Proof & Demo Video
 
-### 📹 Official Hackathon Video Demo
+### 📹 Official Video Demonstration
 > 📺 **Watch the complete live walkthrough on YouTube:**  
 > **Link for demo:** **[https://youtu.be/c3ywTNW5Nys](https://youtu.be/c3ywTNW5Nys)**
 
-[![Watch Surplus Router Demo](https://img.youtube.com/vi/c3ywTNW5Nys/maxresdefault.jpg)](https://youtu.be/c3ywTNW5Nys)
+[![Watch FoodLink Agent Demo](https://img.youtube.com/vi/c3ywTNW5Nys/maxresdefault.jpg)](https://youtu.be/c3ywTNW5Nys)
 
 * **YouTube Video (For Demo):** [https://youtu.be/c3ywTNW5Nys](https://youtu.be/c3ywTNW5Nys)
 * **Duration:** 2 minutes 52 seconds (synchronized 1080p Full HD audio/visual demonstration)
@@ -413,7 +412,8 @@ food-rescue-coordination-agent/
 │   ├── test_e2e_adversarial.py    # 50-thread concurrent chaos & injection tests
 │   └── test_matching_engine.py    # Scoring formula & tie-breaker unit tests
 ├── Surplus_Router_AI_Solutions_Presentation.pptx # 10-Slide Executive Presentation Deck
-├── lean_canvas_surplus_router.pdf # Lean Canvas Business Model Architecture
+├── FoodLink_Agent_Presentation.pptx # FoodLink Agent Executive Presentation Deck
+├── lean_canvas_foodlink_agent.pdf # Lean Canvas Business Model Architecture
 ├── config.py                      # Centralized environment & operational thresholds
 ├── models.py                      # Pydantic v2 strict schemas & domain types
 ├── donations_repo.py              # DynamoDB donation persistence & GSI queries
@@ -429,7 +429,7 @@ food-rescue-coordination-agent/
 
 ## 🤖 Advanced AI & Applied Machine Learning Modules
 
-Surplus Router incorporates four high-impact AI/ML systems (`agent/ml_services.py`):
+FoodLink Agent incorporates four high-impact AI/ML systems (`agent/ml_services.py`):
 
 1. **24h Surplus Demand Forecasting (`SurplusDemandForecaster`)**:
    - Uses Ridge regression trained on cyclical day-of-week seasonality, historical 7-day trailing moving averages, and local banquet event intensity.
@@ -450,9 +450,9 @@ Surplus Router incorporates four high-impact AI/ML systems (`agent/ml_services.p
 
 ## 📊 Presentation Deck & Lean Canvas Assets
 
-- 📽️ **Executive AI Solutions Presentation:** [`Surplus_Router_AI_Solutions_Presentation.pptx`](Surplus_Router_AI_Solutions_Presentation.pptx)  
+- 📽️ **Executive AI Solutions Presentation:** [`FoodLink_Agent_Presentation.pptx`](FoodLink_Agent_Presentation.pptx)  
   *10-Slide Corporate White & Electric Cyan deck featuring food-rescue logistics visuals, VRP formulations, and cost-benefit ROI.*
-- 📄 **Lean Canvas Business Architecture:** [`lean_canvas_surplus_router.pdf`](lean_canvas_surplus_router.pdf)  
+- 📄 **Lean Canvas Business Architecture:** [`lean_canvas_foodlink_agent.pdf`](lean_canvas_foodlink_agent.pdf)  
   *Detailed 9-box business model covering unique value propositions, revenue streams, channels, and unfair advantages.*
 
 ---
@@ -469,7 +469,7 @@ Surplus Router incorporates four high-impact AI/ML systems (`agent/ml_services.p
 
 ## ⚖️ Scope Boundaries & Ethical AI Commitments
 
-To maintain maximum reliability and legal safety during food rescue operations, Surplus Router adheres to strict design boundaries:
+To maintain maximum reliability and legal safety during food rescue operations, FoodLink Agent adheres to strict design boundaries:
 
 * **No Unverified Health Certifications**: The agent validates stated shelf-life against thresholds; it is not a replacement for local health-code compliance.
 * **No Direct Financial Transactions**: The platform strictly coordinates food diversion; it does not process monetary payments or tax receipts.
@@ -478,11 +478,10 @@ To maintain maximum reliability and legal safety during food rescue operations, 
 
 ---
 
-## 🏆 Hackathon Submission Metadata
+## 🏆 Project Showcase Metadata
 
-* **Hackathon:** AWS "Agents for Humans" Hackathon
-* **Track:** **Good Neighbor Agents**
+* **Category:** Autonomous AI Community Logistics Platform
 * **Lead Developer:** Bhumeshwari Bisen (IIST Indore)
-* **Presentation Deck:** [`Surplus_Router_AI_Solutions_Presentation.pptx`](Surplus_Router_AI_Solutions_Presentation.pptx)
-* **Lean Canvas:** [`lean_canvas_surplus_router.pdf`](lean_canvas_surplus_router.pdf)
+* **Presentation Deck:** [`FoodLink_Agent_Presentation.pptx`](FoodLink_Agent_Presentation.pptx)
+* **Lean Canvas:** [`lean_canvas_foodlink_agent.pdf`](lean_canvas_foodlink_agent.pdf)
 * **License:** [MIT Open Source License](LICENSE)
