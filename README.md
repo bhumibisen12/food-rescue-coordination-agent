@@ -25,7 +25,10 @@
 9. [🎬 Live End-to-End System Proof & Demo Video](#-live-end-to-end-system-proof--demo-video)
 10. [🚀 Local Setup & Installation](#-local-setup--installation)
 11. [📂 Project Structure & Module Directory](#-project-structure--module-directory)
-12. [⚖️ Scope Boundaries & Ethical AI Commitments](#-scope-boundaries--ethical-ai-commitments)
+12. [🤖 Advanced AI & Applied Machine Learning Modules](#-advanced-ai--applied-machine-learning-modules)
+13. [👩‍💻 Author & Project Lead](#-author--project-lead)
+14. [⚖️ Scope Boundaries & Ethical AI Commitments](#️-scope-boundaries--ethical-ai-commitments)
+15. [🏆 Project Showcase Metadata](#-project-showcase-metadata)
 
 ---
 
@@ -468,6 +471,13 @@ To maintain maximum reliability and legal safety during food rescue operations, 
 
 ## 🏆 Project Showcase Metadata
 
+* **Project:** **FoodLink Agent** (Autonomous Zero-Waste Logistics)
 * **Category:** Autonomous AI Community Logistics Platform
-* **Lead Developer:** Bhumeshwari Bisen (IIST Indore)
+* **Lead Developer:** **Bhumeshwari Bisen**
+* **Role:** Machine Learning & Applied AI Intern
+* **College:** Indore Institute of Science & Technology (IIST), Indore
+* **Department:** Department of Computer Science & Engineering
+* **GitHub Repository:** [https://github.com/bhumibisen12/food-rescue-coordination-agent](https://github.com/bhumibisen12/food-rescue-coordination-agent)
+* **Live Public URL:** [https://tender-berries-chew.loca.lt](https://tender-berries-chew.loca.lt)
+* **Core Architecture:** Strands Agents SDK &middot; AWS Bedrock AgentCore &middot; DynamoDB ACID &middot; FastAPI &middot; Scikit-Learn
 * **License:** [MIT Open Source License](LICENSE)
