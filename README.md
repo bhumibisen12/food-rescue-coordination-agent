@@ -411,9 +411,6 @@ food-rescue-coordination-agent/
 │   ├── test_e2e_multi_day.py      # Multi-day operational lifecycle simulation
 │   ├── test_e2e_adversarial.py    # 50-thread concurrent chaos & injection tests
 │   └── test_matching_engine.py    # Scoring formula & tie-breaker unit tests
-├── Surplus_Router_AI_Solutions_Presentation.pptx # 10-Slide Executive Presentation Deck
-├── FoodLink_Agent_Presentation.pptx # FoodLink Agent Executive Presentation Deck
-├── lean_canvas_foodlink_agent.pdf # Lean Canvas Business Model Architecture
 ├── config.py                      # Centralized environment & operational thresholds
 ├── models.py                      # Pydantic v2 strict schemas & domain types
 ├── donations_repo.py              # DynamoDB donation persistence & GSI queries
@@ -448,15 +445,6 @@ FoodLink Agent incorporates four high-impact AI/ML systems (`agent/ml_services.p
 
 ---
 
-## 📊 Presentation Deck & Lean Canvas Assets
-
-- 📽️ **Executive AI Solutions Presentation:** [`FoodLink_Agent_Presentation.pptx`](FoodLink_Agent_Presentation.pptx)  
-  *10-Slide Corporate White & Electric Cyan deck featuring food-rescue logistics visuals, VRP formulations, and cost-benefit ROI.*
-- 📄 **Lean Canvas Business Architecture:** [`lean_canvas_foodlink_agent.pdf`](lean_canvas_foodlink_agent.pdf)  
-  *Detailed 9-box business model covering unique value propositions, revenue streams, channels, and unfair advantages.*
-
----
-
 ## 👩‍💻 Author & Project Lead
 
 * **Name:** **Bhumeshwari Bisen**
@@ -482,6 +470,4 @@ To maintain maximum reliability and legal safety during food rescue operations, 
 
 * **Category:** Autonomous AI Community Logistics Platform
 * **Lead Developer:** Bhumeshwari Bisen (IIST Indore)
-* **Presentation Deck:** [`FoodLink_Agent_Presentation.pptx`](FoodLink_Agent_Presentation.pptx)
-* **Lean Canvas:** [`lean_canvas_foodlink_agent.pdf`](lean_canvas_foodlink_agent.pdf)
 * **License:** [MIT Open Source License](LICENSE)
