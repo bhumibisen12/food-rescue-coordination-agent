@@ -1,5 +1,8 @@
 # Internal scratch files
 video_scratch/
+*.exe
+*.bak
+cyber_*.jpg
 
 
 # Python

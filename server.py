@@ -7,7 +7,7 @@ to the FrontendApiService handler with trusted socket client IP extraction.
 import argparse
 import mimetypes
 import urllib.parse
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
@@ -233,7 +233,7 @@ def run_dev_server(port: int = 8080, use_mock: bool = False) -> None:
         FrontendDevServerHandler.api_service = create_aws_production_service()
 
     server_address = ("127.0.0.1", port)
-    httpd = HTTPServer(server_address, FrontendDevServerHandler)
+    httpd = ThreadingHTTPServer(server_address, FrontendDevServerHandler)
     mode_str = "IN-MEMORY MOCK" if use_mock else "LIVE AWS DYNAMODB"
     LOGGER.info(
         "Surplus Router Frontend Server running at http://127.0.0.1:%d [%s mode]",

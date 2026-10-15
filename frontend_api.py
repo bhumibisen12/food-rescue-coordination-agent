@@ -37,6 +37,13 @@ from models import (
 from recipients_repo import RecipientsRepository
 from tools.logging_utils import CORRELATION_ID_CONTEXT, get_structured_logger
 from volunteers_repo import VolunteersRepository
+from agent.ml_services import (
+    ANOMALY_DETECTOR,
+    ROUTE_OPTIMIZER,
+    SHELF_LIFE_PREDICTOR,
+    SMART_MATCHING_RANKER,
+    SURPLUS_FORECASTER,
+)
 
 LOGGER = get_structured_logger(__name__)
 
@@ -337,6 +344,22 @@ class FrontendApiService:
         ):
             donation_id = path.split("/")[4]
             return self._handle_coordinator_resolve(donation_id, event, source_ip)
+
+        # AI/ML Upgrade Endpoints
+        if path == "/api/ml/forecast" and http_method == "POST":
+            return self._handle_ml_forecast(event)
+
+        if path == "/api/ml/shelf-life" and http_method == "POST":
+            return self._handle_ml_shelf_life(event)
+
+        if path == "/api/ml/smart-match" and http_method == "POST":
+            return self._handle_ml_smart_match(event)
+
+        if path == "/api/ml/route-optimize" and http_method == "POST":
+            return self._handle_ml_route_optimize(event)
+
+        if path == "/api/ml/anomaly-check" and http_method == "POST":
+            return self._handle_ml_anomaly_check(event)
 
         return build_api_response(404, {"error": f"Endpoint not found: {path}"})
 
@@ -890,3 +913,222 @@ class FrontendApiService:
             self._audit_repo.record_audit_event(audit)
         except Exception as exc:
             LOGGER.error("Failed recording auth violation audit event: %s", exc)
+
+    # --------------------------------------------------------------------------
+    # AI/ML Upgrade Handlers
+    # --------------------------------------------------------------------------
+    def _handle_ml_forecast(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Predict next-day surplus volume for donors/wards."""
+        body = (
+            json.loads(event.get("body") or "{}")
+            if isinstance(event.get("body"), str)
+            else (event.get("body") or {})
+        )
+        donor_id = body.get("donor_id", "donor-demo")
+        donor_category = body.get("donor_category", "restaurant")
+        rolling_avg = float(body.get("rolling_7d_avg", 35.0))
+        event_intensity = float(body.get("event_intensity", 1.0))
+        res = SURPLUS_FORECASTER.forecast(
+            donor_id=donor_id,
+            donor_category=donor_category,
+            rolling_7d_avg=rolling_avg,
+            event_intensity=event_intensity,
+        )
+        return build_api_response(
+            200,
+            {
+                "donor_id": res.donor_id,
+                "target_date": res.target_date,
+                "predicted_surplus_kg": res.predicted_kg,
+                "confidence_lower_kg": res.confidence_interval_lower_kg,
+                "confidence_upper_kg": res.confidence_interval_upper_kg,
+                "confidence_score": res.confidence_score,
+                "advance_notice_tier": res.advance_notice_tier,
+                "contributing_factors": res.factors,
+            },
+        )
+
+    def _handle_ml_shelf_life(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Predict remaining safe consumption hours and food safety escalation overrides."""
+        body = (
+            json.loads(event.get("body") or "{}")
+            if isinstance(event.get("body"), str)
+            else (event.get("body") or {})
+        )
+        food_type = body.get("food_type", "prepared_meals")
+        storage_temp = float(body.get("storage_temp_c", 30.0))
+        prep_elapsed = float(body.get("prep_elapsed_hours", 1.0))
+        packaging = body.get("packaging", "covered_tray")
+        res = SHELF_LIFE_PREDICTOR.predict(
+            food_type=food_type,
+            storage_temp_c=storage_temp,
+            prep_elapsed_hours=prep_elapsed,
+            packaging=packaging,
+        )
+        return build_api_response(
+            200,
+            {
+                "predicted_safe_hours": res.predicted_safe_hours,
+                "safety_threshold_hours": res.safety_threshold_hours,
+                "is_safe_for_dispatch": res.is_safe_for_dispatch,
+                "escalation_required": res.escalation_required,
+                "escalation_reason": res.escalation_reason,
+                "bacterial_doubling_rate_index": res.bacterial_doubling_rate_index,
+                "recommended_vehicle_cooling": res.recommended_vehicle_cooling,
+            },
+        )
+
+    def _handle_ml_smart_match(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Rank recipient candidates with blended deterministic rules & ML acceptance probability."""
+        body = (
+            json.loads(event.get("body") or "{}")
+            if isinstance(event.get("body"), str)
+            else (event.get("body") or {})
+        )
+        candidates = body.get("candidates") or [
+            {
+                "id": "rec-shelter-01",
+                "name": "Geeta Bhawan Shelter",
+                "distance_km": 2.4,
+                "capacity_kg": 80.0,
+                "dietary_match": True,
+            },
+            {
+                "id": "rec-shelter-02",
+                "name": "Red Cross Community Pantry",
+                "distance_km": 4.1,
+                "capacity_kg": 150.0,
+                "dietary_match": True,
+            },
+            {
+                "id": "rec-shelter-03",
+                "name": "Aastha Food Bank",
+                "distance_km": 7.2,
+                "capacity_kg": 40.0,
+                "dietary_match": False,
+            },
+        ]
+        donation_kg = float(body.get("donation_kg", 25.0))
+        scored = []
+        for c in candidates:
+            sc = SMART_MATCHING_RANKER.score_candidate(
+                recipient_id=c.get("id", "rec-01"),
+                recipient_name=c.get("name", "Shelter"),
+                distance_km=float(c.get("distance_km", 3.0)),
+                donation_kg=donation_kg,
+                recipient_capacity_kg=float(c.get("capacity_kg", 50.0)),
+                dietary_match=bool(c.get("dietary_match", True)),
+                past_acceptance_rate=float(c.get("past_acceptance_rate", 0.90)),
+            )
+            scored.append(
+                {
+                    "recipient_id": sc.recipient_id,
+                    "recipient_name": sc.recipient_name,
+                    "hybrid_score": sc.hybrid_score,
+                    "deterministic_score": sc.deterministic_score,
+                    "ml_acceptance_probability": sc.ml_acceptance_probability,
+                    "distance_km": sc.distance_km,
+                    "capacity_ratio": sc.capacity_ratio,
+                    "dietary_compatible": sc.dietary_compatible,
+                    "feature_contributions": sc.feature_contributions,
+                }
+            )
+        scored.sort(key=lambda x: x["hybrid_score"], reverse=True)
+        return build_api_response(
+            200,
+            {
+                "ranked_matches": scored,
+                "best_match": scored[0] if scored else None,
+            },
+        )
+
+    def _handle_ml_route_optimize(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Solve multi-stop pickup and dropoff routing with spoilage penalty minimization."""
+        body = (
+            json.loads(event.get("body") or "{}")
+            if isinstance(event.get("body"), str)
+            else (event.get("body") or {})
+        )
+        start_lat = float(body.get("start_lat", 22.7196))
+        start_lon = float(body.get("start_lon", 75.8577))
+        pickups = body.get("pickups") or [
+            {
+                "name": "Sarafa Night Vendor 1",
+                "address": "Sarafa Bazaar",
+                "lat": 22.7180,
+                "lon": 75.8560,
+                "quantity_kg": 20.0,
+                "perishability_hours": 2.5,
+            },
+            {
+                "name": "Chhappan Sweets",
+                "address": "56 Dukan",
+                "lat": 22.7240,
+                "lon": 75.8820,
+                "quantity_kg": 15.0,
+                "perishability_hours": 3.0,
+            },
+        ]
+        dropoffs = body.get("dropoffs") or [
+            {
+                "name": "Geeta Bhawan Shelter",
+                "address": "Manoramaganj",
+                "lat": 22.7210,
+                "lon": 75.8750,
+                "capacity_kg": 40.0,
+            },
+        ]
+        res = ROUTE_OPTIMIZER.optimize_route(
+            volunteer_start_lat=start_lat,
+            volunteer_start_lon=start_lon,
+            pickups=pickups,
+            dropoffs=dropoffs,
+        )
+        return build_api_response(
+            200,
+            {
+                "total_travel_time_minutes": res.total_travel_time_minutes,
+                "total_distance_km": res.total_distance_km,
+                "spoilage_risk_index": res.spoilage_risk_index,
+                "ordered_stops": res.ordered_stops,
+                "vehicle_capacity_utilized_pct": res.vehicle_capacity_utilized_pct,
+                "co2_emissions_saved_kg": res.co2_emissions_saved_kg,
+            },
+        )
+
+    def _handle_ml_anomaly_check(self, event: dict[str, Any]) -> dict[str, Any]:
+        """Detect quantity spikes, fraudulent claims, and coordinate anomalies."""
+        body = (
+            json.loads(event.get("body") or "{}")
+            if isinstance(event.get("body"), str)
+            else (event.get("body") or {})
+        )
+        qty = float(body.get("quantity_kg", 25.0))
+        perish = float(body.get("perishability_hours", 4.0))
+        cat = body.get("food_category", "prepared_meals")
+        mean_kg = float(body.get("donor_historical_mean_kg", 30.0))
+        std_kg = float(body.get("donor_historical_std_kg", 12.0))
+        cancel_rate = float(body.get("donor_cancellation_rate", 0.05))
+        reports_hr = int(body.get("reports_last_hour", 1))
+
+        res = ANOMALY_DETECTOR.evaluate_donation(
+            quantity_kg=qty,
+            perishability_hours=perish,
+            food_category=cat,
+            donor_historical_mean_kg=mean_kg,
+            donor_historical_std_kg=std_kg,
+            donor_cancellation_rate=cancel_rate,
+            reports_last_hour=reports_hr,
+        )
+        return build_api_response(
+            200,
+            {
+                "is_anomaly": res.is_anomaly,
+                "anomaly_score": res.anomaly_score,
+                "risk_tier": res.risk_tier,
+                "action": res.action,
+                "flagged_reasons": res.flagged_reasons,
+                "z_scores": res.z_scores,
+            },
+        )
+

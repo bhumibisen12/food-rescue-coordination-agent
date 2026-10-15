@@ -26,23 +26,48 @@
       <!-- Navigation Tabs with Accessible Roles -->
       <nav class="role-nav" aria-label="Role Navigation">
         <button id="nav-tab-donor" class="nav-btn active" data-tab="donor" aria-selected="true" role="tab">
-          <span class="nav-icon">📦</span> Donor Portal
+          <span class="nav-icon">📦</span> <span data-i18n="nav_donor">Donor Portal</span>
         </button>
         <button id="nav-tab-recipient" class="nav-btn" data-tab="recipient" aria-selected="false" role="tab">
-          <span class="nav-icon">🏢</span> Recipient Partner
+          <span class="nav-icon">🏢</span> <span data-i18n="nav_recipient">Recipient Partner</span>
         </button>
         <button id="nav-tab-volunteer" class="nav-btn" data-tab="volunteer" aria-selected="false" role="tab">
-          <span class="nav-icon">🚲</span> Transit Volunteer
+          <span class="nav-icon">🚲</span> <span data-i18n="nav_volunteer">Transit Volunteer</span>
         </button>
         <button id="nav-tab-coordinator" class="nav-btn" data-tab="coordinator" aria-selected="false" role="tab">
-          <span class="nav-icon">🛡️</span> Coordinator <span class="lock-indicator">🔒</span>
+          <span class="nav-icon">🛡️</span> <span data-i18n="nav_coordinator">Coordinator</span> <span class="lock-indicator">🔒</span>
         </button>
         <button id="nav-tab-impact" class="nav-btn" data-tab="impact" aria-selected="false" role="tab">
-          <span class="nav-icon">📊</span> Impact Metrics
+          <span class="nav-icon">📊</span> <span data-i18n="nav_impact">Impact Metrics</span>
+        </button>
+        <button id="nav-tab-hotspots" class="nav-btn" data-tab="hotspots" aria-selected="false" role="tab">
+          <span class="nav-icon">🗺️</span> <span data-i18n="nav_hotspots">Waste Hotspots</span>
         </button>
       </nav>
+
+      <div class="header-actions">
+        <button type="button" id="btn-lang-toggle" class="lang-toggle-btn" title="Toggle Language (English / हिंदी)">
+          <span class="lang-flag">🌐</span> <span id="lang-toggle-text">हिंदी</span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Live Status Marquee Ticker -->
+  <div class="live-ticker-bar" aria-hidden="true">
+    <div class="ticker-content">
+      <span>● <strong>LIVE AGENTCORE</strong> ACTIVE</span>
+      <span>⚡ <strong>0.8s MATCH LATENCY</strong></span>
+      <span>🌱 <strong>ZERO FOOD WASTE FLEX</strong></span>
+      <span>🔒 <strong>ZERO-IDOR CRYPTOGRAPHIC PRIVACY</strong></span>
+      <span>🚲 <strong>VOLUNTEER FLEET READY</strong></span>
+      <span>● <strong>LIVE AGENTCORE</strong> ACTIVE</span>
+      <span>⚡ <strong>0.8s MATCH LATENCY</strong></span>
+      <span>🌱 <strong>ZERO FOOD WASTE FLEX</strong></span>
+      <span>🔒 <strong>ZERO-IDOR CRYPTOGRAPHIC PRIVACY</strong></span>
+      <span>🚲 <strong>VOLUNTEER FLEET READY</strong></span>
+    </div>
+  </div>
 
   <!-- Main Container -->
   <main class="app-main">
@@ -53,14 +78,14 @@
       <!-- ================================================================= -->
       <section id="tab-panel-donor" class="tab-panel active" role="tabpanel" aria-labelledby="nav-tab-donor">
         <div class="panel-header">
-          <h1>Report Surplus Food Donation</h1>
-          <p class="panel-subtitle">Notify the autonomous coordination network of edible surplus food for rapid zero-waste redistribution.</p>
+          <h1 data-i18n="donor_heading">Report Surplus Food Donation</h1>
+          <p class="panel-subtitle" data-i18n="donor_subtitle">Notify the autonomous coordination network of edible surplus food for rapid zero-waste redistribution.</p>
         </div>
 
         <div class="grid-layout grid-2-col">
           <!-- Report Form Card -->
           <article class="glass-card">
-            <h2 class="card-title">New Donation Report</h2>
+            <h2 class="card-title" data-i18n="donor_card_title">New Donation Report</h2>
             <form id="donor-report-form" class="standard-form" novalidate>
               <div class="form-row">
                 <div class="form-group">
@@ -99,6 +124,41 @@
                 <div class="form-group">
                   <label for="donor-input-perishability">Perishability (Safe Hours) *</label>
                   <input type="number" id="donor-input-perishability" required min="1.0" max="168.0" step="0.5" placeholder="4.0">
+                </div>
+              </div>
+
+              <!-- AI Food Shelf-Life & Safety Estimator Widget -->
+              <div class="ai-estimator-box">
+                <div class="estimator-header">
+                  <span class="estimator-title" data-i18n="ai_estimator_title">⚡ AI Shelf-Life & Spoilage Estimator</span>
+                  <span class="estimator-badge" data-i18n="ai_estimator_badge">FSSAI / USDA Scientific Rule Engine</span>
+                </div>
+                <div class="estimator-controls">
+                  <div class="estimator-col">
+                    <label for="ai-food-temp" data-i18n="ai_temp_label">Storage Temp / Condition</label>
+                    <select id="ai-food-temp">
+                      <option value="warm_ambient">Warm / Ambient Room Temp (25°C - 35°C)</option>
+                      <option value="hot_steaming">Hot / Freshly Cooked (>60°C)</option>
+                      <option value="refrigerated">Refrigerated Chilled (0°C - 4°C)</option>
+                      <option value="frozen">Frozen Deep Freeze (&lt;-18°C)</option>
+                    </select>
+                  </div>
+                  <div class="estimator-col">
+                    <label for="ai-food-packaging" data-i18n="ai_pkg_label">Packaging & Transit Type</label>
+                    <select id="ai-food-packaging">
+                      <option value="covered_tray">Covered Food Tray / Container</option>
+                      <option value="sealed_thermal">Sealed Insulated Thermal Box</option>
+                      <option value="open_exposed">Open Buffet / Foil Wrapped</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="estimator-result-row">
+                  <div class="estimator-result-stat">
+                    <span class="stat-label" data-i18n="ai_safe_window_label">Estimated Safe Window:</span>
+                    <span id="ai-result-hours" class="stat-value">3.5 Hours</span>
+                  </div>
+                  <span id="ai-result-badge" class="risk-pill risk-warning">⚠️ High Spoilage Urgency</span>
+                  <button type="button" id="btn-apply-shelf-life" class="btn btn-secondary btn-sm" data-i18n="btn_apply_hours">⚡ Auto-Fill Safe Hours</button>
                 </div>
               </div>
 
@@ -203,8 +263,8 @@
       <!-- ================================================================= -->
       <section id="tab-panel-recipient" class="tab-panel" role="tabpanel" aria-labelledby="nav-tab-recipient">
         <div class="panel-header">
-          <h1>Recipient Capacity & Dietary Check-in</h1>
-          <p class="panel-subtitle">Maintain real-time intake capacity so the autonomous router never over-allocates food to your shelter.</p>
+          <h1 data-i18n="recipient_heading">Recipient Capacity & Dietary Check-in</h1>
+          <p class="panel-subtitle" data-i18n="recipient_subtitle">Maintain real-time intake capacity so the autonomous router never over-allocates food to your shelter.</p>
         </div>
 
         <div class="grid-layout grid-2-col">
@@ -272,8 +332,8 @@
       <!-- ================================================================= -->
       <section id="tab-panel-volunteer" class="tab-panel" role="tabpanel" aria-labelledby="nav-tab-volunteer">
         <div class="panel-header">
-          <h1>Transit Volunteer Check-in & Assignments</h1>
-          <p class="panel-subtitle">Update dispatch availability and view active food delivery trips with strict cross-party privacy.</p>
+          <h1 data-i18n="volunteer_heading">Transit Volunteer Check-in & Assignments</h1>
+          <p class="panel-subtitle" data-i18n="volunteer_subtitle">Update dispatch availability and view active food delivery trips with strict cross-party privacy.</p>
         </div>
 
         <div class="grid-layout grid-2-col">
@@ -339,8 +399,8 @@
       <!-- ================================================================= -->
       <section id="tab-panel-coordinator" class="tab-panel" role="tabpanel" aria-labelledby="nav-tab-coordinator">
         <div class="panel-header">
-          <h1>Coordinator Command Center</h1>
-          <p class="panel-subtitle">Live system oversight, automated escalation handling, and manual dispatch overrides.</p>
+          <h1 data-i18n="coord_heading">Coordinator Command Center</h1>
+          <p class="panel-subtitle" data-i18n="coord_subtitle">Live system oversight, automated escalation handling, and manual dispatch overrides.</p>
         </div>
 
         <!-- Auth Gate Modal / Overlay -->
@@ -400,8 +460,8 @@
       <!-- ================================================================= -->
       <section id="tab-panel-impact" class="tab-panel" role="tabpanel" aria-labelledby="nav-tab-impact">
         <div class="panel-header">
-          <h1>Community Food Rescue Impact</h1>
-          <p class="panel-subtitle">Cumulative metrics quantifying surplus food diverted from landfills to community kitchens.</p>
+          <h1 data-i18n="impact_heading">Community Food Rescue Impact</h1>
+          <p class="panel-subtitle" data-i18n="impact_subtitle">Cumulative metrics quantifying surplus food diverted from landfills to community kitchens.</p>
         </div>
 
         <div class="metrics-grid">
@@ -427,6 +487,153 @@
             <span class="metric-icon">🚚</span>
             <div class="metric-val" id="metric-active-volunteers">5</div>
             <div class="metric-label">Active Transit Volunteers</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 6: Waste Hotspot Map & Geo Predictive Analytics (Indore / MP) -->
+      <!-- ================================================================= -->
+      <section id="tab-panel-hotspots" class="tab-panel" role="tabpanel" aria-labelledby="nav-tab-hotspots">
+        <div class="panel-header">
+          <h1 data-i18n="hotspots_heading">Indore Surplus & Waste Hotspot Map</h1>
+          <p class="panel-subtitle" data-i18n="hotspots_subtitle">Predictive geospatial analytics identifying recurring surplus clusters across Indore municipal wards for preemptive volunteer fleet routing.</p>
+        </div>
+
+        <div class="hotspots-container">
+          <!-- Interactive Geospatial Visualizer -->
+          <div class="glass-card">
+            <div class="map-toolbar">
+              <div>
+                <span class="map-badge" data-i18n="hotspot_map_badge">LIVE GEO-HEATMAP</span>
+                <span class="map-zone-label" data-i18n="hotspot_map_region">Indore Municipal Corporation (IMC)</span>
+              </div>
+              <div class="map-filter-group">
+                <button type="button" class="map-filter-btn active" data-filter="all" data-i18n="filter_all">All Hotspots</button>
+                <button type="button" class="map-filter-btn" data-filter="high" data-i18n="filter_high">High Urgency (&lt;3h)</button>
+                <button type="button" class="map-filter-btn" data-filter="night" data-i18n="filter_night">Night Markets</button>
+              </div>
+            </div>
+
+            <div class="svg-map-wrapper">
+              <svg class="cyber-hotspot-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Grid Coordinates -->
+                <defs>
+                  <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+                  </pattern>
+                  <radialGradient id="aura-red" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+                  </radialGradient>
+                  <radialGradient id="aura-amber" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+                  </radialGradient>
+                  <radialGradient id="aura-green" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+                <rect width="600" height="400" fill="#080c18" />
+                <rect width="600" height="400" fill="url(#grid-pattern)" />
+
+                <!-- Transit Route Corridors -->
+                <path d="M 230 250 L 330 190 L 450 110" fill="none" stroke="rgba(6, 182, 212, 0.35)" stroke-width="2" stroke-dasharray="4,4" />
+                <path d="M 230 250 L 170 320 L 300 340" fill="none" stroke="rgba(16, 185, 129, 0.3)" stroke-width="2" stroke-dasharray="4,4" />
+                <path d="M 330 190 L 370 230 L 300 340" fill="none" stroke="rgba(244, 63, 94, 0.35)" stroke-width="2" stroke-dasharray="4,4" />
+
+                <!-- Partner Shelters (Destination hubs) -->
+                <g class="shelter-node" transform="translate(300, 340)">
+                  <rect x="-8" y="-8" width="16" height="16" fill="#06b6d4" rx="3" />
+                  <text x="0" y="20" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="Inter, sans-serif">Geeta Bhawan Shelter</text>
+                </g>
+                <g class="shelter-node" transform="translate(490, 160)">
+                  <rect x="-8" y="-8" width="16" height="16" fill="#06b6d4" rx="3" />
+                  <text x="0" y="20" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="Inter, sans-serif">Vijay Nagar Red Cross</text>
+                </g>
+
+                <!-- Hotspot 1: Sarafa Night Market (High Urgency) -->
+                <g class="map-node node-active" id="node-sarafa" data-zone="sarafa" transform="translate(230, 250)">
+                  <circle class="pulse-aura" r="28" fill="url(#aura-red)" />
+                  <circle class="node-dot" r="9" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
+                  <text x="0" y="-14" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Sarafa Bazaar</text>
+                  <text x="0" y="22" fill="#f87171" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">185 kg/day (High)</text>
+                </g>
+
+                <!-- Hotspot 2: 56 Dukan (Medium Urgency) -->
+                <g class="map-node" id="node-chhappan" data-zone="chhappan" transform="translate(330, 190)">
+                  <circle class="pulse-aura" r="24" fill="url(#aura-amber)" />
+                  <circle class="node-dot" r="8" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+                  <text x="0" y="-13" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">56 Dukan</text>
+                  <text x="0" y="21" fill="#fbbf24" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">140 kg/day</text>
+                </g>
+
+                <!-- Hotspot 3: Vijay Nagar Banquet Belt (High Urgency) -->
+                <g class="map-node" id="node-vijaynagar" data-zone="vijaynagar" transform="translate(450, 110)">
+                  <circle class="pulse-aura" r="32" fill="url(#aura-red)" />
+                  <circle class="node-dot" r="10" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
+                  <text x="0" y="-15" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Vijay Nagar Banquets</text>
+                  <text x="0" y="24" fill="#f87171" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">320 kg/night</text>
+                </g>
+
+                <!-- Hotspot 4: Old Palasia Cafes (Low Urgency) -->
+                <g class="map-node" id="node-palasia" data-zone="palasia" transform="translate(370, 240)">
+                  <circle class="pulse-aura" r="20" fill="url(#aura-green)" />
+                  <circle class="node-dot" r="7" fill="#10b981" stroke="#ffffff" stroke-width="2" />
+                  <text x="0" y="-12" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Old Palasia Hub</text>
+                  <text x="0" y="20" fill="#34d399" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">95 kg/day</text>
+                </g>
+
+                <!-- Hotspot 5: Bhawarkua Student Mess (Medium Urgency) -->
+                <g class="map-node" id="node-bhawarkua" data-zone="bhawarkua" transform="translate(170, 320)">
+                  <circle class="pulse-aura" r="26" fill="url(#aura-amber)" />
+                  <circle class="node-dot" r="8" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+                  <text x="0" y="-13" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Bhawarkua Mess Cluster</text>
+                  <text x="0" y="21" fill="#fbbf24" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">210 kg/day</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="map-legend">
+              <span class="legend-item"><span class="dot dot-red"></span> <span data-i18n="legend_high">Critical Surplus (&gt;150kg/day, Urgent)</span></span>
+              <span class="legend-item"><span class="dot dot-amber"></span> <span data-i18n="legend_med">Moderate Surplus (100–150kg/day)</span></span>
+              <span class="legend-item"><span class="dot dot-green"></span> <span data-i18n="legend_low">Controlled Surplus (&lt;100kg/day)</span></span>
+              <span class="legend-item"><span class="dot" style="background: #06b6d4; border-radius: 2px;"></span> <span data-i18n="legend_shelter">Registered Community Shelter</span></span>
+            </div>
+          </div>
+
+          <!-- Hotspot Analytics Detail Panel -->
+          <div class="glass-card">
+            <h2 id="hotspot-zone-title" style="margin-bottom: 6px;">Sarafa Night Food Market</h2>
+            <p id="hotspot-zone-meta" class="panel-subtitle" style="margin-bottom: 16px;">Indore Ward 57 • Rajwada Commercial Zone</p>
+
+            <div class="hotspot-stats-grid">
+              <div class="h-stat-box">
+                <span class="h-stat-lbl" data-i18n="h_lbl_surplus">Avg Weekly Surplus</span>
+                <span id="h-stat-surplus" class="h-stat-val text-red">1,280 kg</span>
+              </div>
+              <div class="h-stat-box">
+                <span class="h-stat-lbl" data-i18n="h_lbl_category">Dominant Category</span>
+                <span id="h-stat-category" class="h-stat-val text-cyan">Prepared Meals & Sweets</span>
+              </div>
+              <div class="h-stat-box">
+                <span class="h-stat-lbl" data-i18n="h_lbl_peak">Peak Surplus Hours</span>
+                <span id="h-stat-peak" class="h-stat-val text-amber">10:30 PM – 2:00 AM</span>
+              </div>
+              <div class="h-stat-box">
+                <span class="h-stat-lbl" data-i18n="h_lbl_transit">Avg Transit to Shelter</span>
+                <span id="h-stat-transit" class="h-stat-val text-emerald">2.4 km (12 min)</span>
+              </div>
+            </div>
+
+            <div class="hotspot-action-box">
+              <span class="action-heading" data-i18n="h_dispatch_heading">⚡ Autonomous Dispatch Advisory</span>
+              <p id="hotspot-advisory" class="advisory-text" data-i18n="h_advisory_text">Sarafa market operates until late midnight with high-perishability cooked food. Autonomous router recommends pre-allocating 2 electric two-wheeler volunteers near Rajwada at 10:00 PM for instant 15-minute handoffs to Geeta Bhawan Rain Basera.</p>
+              <button type="button" id="btn-dispatch-hotspot" class="btn btn-primary btn-sm" style="width: 100%;" data-i18n="btn_dispatch_volunteers">
+                🚀 Pre-Position Volunteer Fleet Now
+              </button>
+            </div>
           </div>
         </div>
       </section>
